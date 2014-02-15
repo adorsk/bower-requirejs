@@ -23,6 +23,7 @@
 -c, --config         # Path to your RequireJS config file'
 -e, --exclude        # Name of a dependency to be excluded from the process'
 -b, --baseUrl        # Path which all dependencies will be relative to'
+-t, --transitive     # Process transitive dependencies'
 ```
 
 
@@ -72,10 +73,11 @@ var bowerRequireJS = require('bower-requirejs');
 
 var options = {
   config: 'scripts/config.js',
-  exclude: ['underscore', 'jquery']
+  exclude: ['underscore', 'jquery'],
+  transitive: true
 };
 
-bowerRequrieJS(options, function () {
+bowerRequireJS(options, function () {
   // all done!
 });
 ```
