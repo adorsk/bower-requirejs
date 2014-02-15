@@ -53,6 +53,13 @@ requirejs.config({
 
 The tool does not overwrite the config file, it just adds additional paths to it. So paths you add will be preserved. Keep in mind that if you change or remove one of your Bower dependencies after you've run the task, that path will still exist in the config file and you'll need to manually remove it.
 
+### Transitive option
+If the transitive option is set to ```true```, then transitive dependencies will be also added to the require config.
+
+For example, say we explicitly have an entry in our bower config for module ```myTotallyCoolModule```, which depends on ```jQuery``` and ```underscore```. If the transitive option is set to ```true```, there will be config entries for ```myTotallyCoolModule```, ```jQuery```, and ```underscore```. Otherwise, if the transitive option is set to ```false```, there will only be a config entry for ```myTotallyCoolModule```.
+
+Each transitive dependency is only included once, even if the dependency is used multiple times.
+
 
 ### RequireJS component
 
