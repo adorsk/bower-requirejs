@@ -19,7 +19,8 @@ var opts = nopt({
   v: '--version',
   c: '--config',
   e: '--exclude',
-  b: '--baseUrl'
+  b: '--baseUrl',
+  t: '--transitive'
 });
 
 function init() {
@@ -36,6 +37,7 @@ function help() {
     '  -c, --config         # Path to your RequireJS config file',
     '  -e, --exclude        # Name of a dependency to be excluded from the process',
     '  -b, --baseUrl        # Path which all dependencies will be relative to',
+    '  -t, --transitive     # Process transitive dependencies',
     ''
   ];
 
