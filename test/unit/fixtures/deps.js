@@ -66,5 +66,25 @@ module.exports = {
         'is/js/baz.js'
       ]
     }
+  },
+  'some-package': {
+    canonicalDir: './tmp/bower_components/some-package',
+    pkgMeta: {
+      moduleType: 'commonjs',
+    }
+  },
+  'some-package-with-a-location': {
+    canonicalDir: './tmp/bower_components/some-package',
+    pkgMeta: {
+      moduleType: 'commonjs',
+      location: 'some-location',
+    }
+  },
+  'some-package-with-a-main': {
+    canonicalDir: './tmp/bower_components/some-package',
+    pkgMeta: {
+      moduleType: 'commonjs',
+      main: 'some-main.js'
+    }
   }
 };

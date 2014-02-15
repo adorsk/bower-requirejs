@@ -2,6 +2,7 @@ require.config({
   shim: {
 
   },
+  packages: [],
   paths: {
     hm: 'vendor/hm',
     esprima: 'vendor/esprima',

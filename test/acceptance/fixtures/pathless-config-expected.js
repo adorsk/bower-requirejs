@@ -2,6 +2,7 @@ require.config({
   shim: {
 
   },
+  packages: [],
   paths: {
     anima: "../bower_components/anima/anima",
     'backbone-amd': '../bower_components/backbone-amd/backbone',
