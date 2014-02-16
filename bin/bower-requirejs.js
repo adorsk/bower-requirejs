@@ -14,13 +14,14 @@ var opts = nopt({
   config: path,
   exclude: Array,
   'base-url': path,
-  baseUrl: path // alias for --base-url
+  baseUrl: path, // alias for --base-url
+  transitive: Boolean,
 }, {
   h: '--help',
   v: '--version',
   c: '--config',
   e: '--exclude',
-  b: '--base-url'
+  b: '--base-url',
   t: '--transitive'
 });
 
