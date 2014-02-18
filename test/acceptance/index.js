@@ -4,6 +4,9 @@
 var fs = require('fs');
 var should = require('should');
 var durableJsonLint = require('durable-json-lint');
+var bower = require('bower');
+var path = require('path');
+var os = require('os');
 
 // extract the config object as a string from the actual and expected files.
 // then turn the string into json so we can deeply compare the objects.
@@ -72,6 +75,51 @@ describe('index', function () {
       require('../../lib')(opts, function () {
         var actual = jsonify(fs.readFileSync('tmp/generated-config.js', 'utf8'));
         var expected = jsonify(fs.readFileSync('test/acceptance/fixtures/generated-config-expected.js', 'utf8'));
+        actual.should.eql(expected);
+        done();
+      });
+    });
+  });
+
+  describe('transitive dependencies', function(){
+    var bowerOpts;
+    var tmpDir;
+    var configFile;
+
+    // Setup temporary bower components.
+    before(function(done){
+      tmpDir = path.join(os.tmpdir(), 'transitiveTest.' + process.pid);
+      fs.mkdirSync(tmpDir);
+
+      bowerOpts = { cwd: tmpDir };
+      configFile = path.join(tmpDir, 'config.js');
+
+      bower.commands.install(['marionette#1.6.2'], {}, bowerOpts)
+      .on('end', function(){done()});
+    });
+
+    // Clear configFile before each test.
+    beforeEach(function(){
+      if (fs.existsSync(configFile)){
+        fs.unlinkSync(configFile);
+      }
+    });
+
+    it('should include transitive dependencies if transitive option is true', function(done){
+      var opts = {transitive: true, config: configFile, bowerOpts: bowerOpts};
+      require('../../lib')(opts, function () {
+        var actual = jsonify(fs.readFileSync(configFile, 'utf8'));
+        var expected = jsonify(fs.readFileSync('test/acceptance/fixtures/transitive-true-expected.js', 'utf8'));
+        actual.should.eql(expected);
+        done();
+      });
+    });
+
+    it('should not include transitive dependencies if transitive option is false', function(done){
+      var opts = {transitive: false, config: configFile, bowerOpts: bowerOpts};
+      require('../../lib')(opts, function () {
+        var actual = jsonify(fs.readFileSync(configFile, 'utf8'));
+        var expected = jsonify(fs.readFileSync('test/acceptance/fixtures/transitive-false-expected.js', 'utf8'));
         actual.should.eql(expected);
         done();
       });
