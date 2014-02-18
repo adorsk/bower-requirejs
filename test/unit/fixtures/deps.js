@@ -70,20 +70,20 @@ module.exports = {
   'some-package': {
     canonicalDir: './tmp/bower_components/some-package',
     pkgMeta: {
-      moduleType: 'commonjs',
+      moduleType: 'node',
     }
   },
   'some-package-with-a-location': {
     canonicalDir: './tmp/bower_components/some-package',
     pkgMeta: {
-      moduleType: 'commonjs',
+      moduleType: 'node',
       location: 'some-location',
     }
   },
   'some-package-with-a-main': {
     canonicalDir: './tmp/bower_components/some-package',
     pkgMeta: {
-      moduleType: 'commonjs',
+      moduleType: 'node',
       main: 'some-main.js'
     }
   }
