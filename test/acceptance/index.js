@@ -81,45 +81,12 @@ describe('index', function () {
     });
   });
 
-  describe('transitive dependencies', function(){
-    var bowerOpts;
-    var tmpDir;
-    var configFile;
-
-    // Setup temporary bower components.
-    before(function(done){
-      tmpDir = path.join(os.tmpdir(), 'transitiveTest.' + process.pid);
-      fs.mkdirSync(tmpDir);
-
-      bowerOpts = { cwd: tmpDir };
-      configFile = path.join(tmpDir, 'config.js');
-
-      bower.commands.install(['marionette#1.6.2'], {}, bowerOpts)
-      .on('end', function(){done()});
-    });
-
-    // Clear configFile before each test.
-    beforeEach(function(){
-      if (fs.existsSync(configFile)){
-        fs.unlinkSync(configFile);
-      }
-    });
-
-    it('should include transitive dependencies if transitive option is true', function(done){
-      var opts = {transitive: true, config: configFile, bowerOpts: bowerOpts};
+  describe('with transitive dependencies', function(){
+    it('should return the expected result', function(done){
+      var opts = {transitive: true, config: 'tmp/transitive-config.js'};
       require('../../lib')(opts, function () {
-        var actual = jsonify(fs.readFileSync(configFile, 'utf8'));
-        var expected = jsonify(fs.readFileSync('test/acceptance/fixtures/transitive-true-expected.js', 'utf8'));
-        actual.should.eql(expected);
-        done();
-      });
-    });
-
-    it('should not include transitive dependencies if transitive option is false', function(done){
-      var opts = {transitive: false, config: configFile, bowerOpts: bowerOpts};
-      require('../../lib')(opts, function () {
-        var actual = jsonify(fs.readFileSync(configFile, 'utf8'));
-        var expected = jsonify(fs.readFileSync('test/acceptance/fixtures/transitive-false-expected.js', 'utf8'));
+        var actual = jsonify(fs.readFileSync('tmp/transitive-config.js', 'utf8'));
+        var expected = jsonify(fs.readFileSync('test/acceptance/fixtures/transitive-config-expected.js', 'utf8'));
         actual.should.eql(expected);
         done();
       });
