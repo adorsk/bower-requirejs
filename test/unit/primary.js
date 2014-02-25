@@ -7,7 +7,7 @@ var primary = require('../../lib/primary');
 var deps = require('./fixtures/deps');
 
 describe('primary', function () {
-  it('should return a js file that matches the project dir', function () {
+  it.only('should return a js file that matches the project dir', function () {
     var actual = primary('backbone', deps.backbone);
     var expected = 'backbone.js';
     actual.should.eql(expected);
