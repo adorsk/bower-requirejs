@@ -72,7 +72,7 @@ describe('parse', function () {
     actual.should.eql(expected);
   });
 
-  it('should return a package if moduleType is commonjs', function () {
+  it('should return a package if moduleType is node', function () {
     var name = 'some-package';
     var actual = parse(deps[name], name, './');
     var expected = {
