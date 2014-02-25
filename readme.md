@@ -22,7 +22,7 @@
 -v, --version        # Print the version number'
 -c, --config         # Path to your RequireJS config file'
 -e, --exclude        # Name of a dependency to be excluded from the process'
--b, --baseUrl        # Path which all dependencies will be relative to'
+-b, --base-url        # Path which all dependencies will be relative to'
 -t, --transitive     # Process transitive dependencies'
 ```
 
@@ -70,8 +70,8 @@ Although RequireJS does not provide a `bower.json` file, a path to `require.js` 
 
 ### bowerRequireJS(options, callback)
 
-- `options` — An [options object](https://github.com/yeoman/bower-requirejs#options) containing a config and optional baseUrl and excludes.
-- `callback` — A callback to execute when the task is finished
+- `options` — An [options object](https://github.com/yeoman/bower-requirejs#options) containing an optional config file path, baseUrl and excludes. If config file path is included, the resulting config will be written to that path.
+- `callback` — A callback to execute when the task is finished. The resulting config object is passed as an argument to the callback.
 
 You can use `bower-requirejs` directly in your app if you prefer to not rely on the binary.
 
@@ -84,7 +84,7 @@ var options = {
   transitive: true
 };
 
-bowerRequireJS(options, function () {
+bowerRequireJS(options, function (requireJsConfig) {
   // all done!
 });
 ```
