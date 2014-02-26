@@ -73,15 +73,22 @@ module.exports = {
       moduleType: ['node'],
     }
   },
-  'some-package-with-a-location': {
-    canonicalDir: './tmp/bower_components/some-package',
+  'relative-location': {
+    canonicalDir: './tmp/bower_components/relative-location',
     pkgMeta: {
       moduleType: ['node'],
-      location: 'some-location',
+      location: 'location',
+    }
+  },
+  'absolute-location': {
+    canonicalDir: './tmp/bower_components/absolute-location',
+    pkgMeta: {
+      moduleType: ['node'],
+      location: '/location',
     }
   },
   'some-package-with-a-main': {
-    canonicalDir: './tmp/bower_components/some-package',
+    canonicalDir: './tmp/bower_components/some-package-with-a-main',
     pkgMeta: {
       moduleType: ['node'],
       main: 'some-main.js'
