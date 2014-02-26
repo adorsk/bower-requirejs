@@ -86,15 +86,29 @@ describe('parse', function () {
     actual.should.eql(expected);
   });
 
-  it('should parse package location if given', function () {
-    var name = 'some-package-with-a-location';
+  it('should parse relative package location ', function () {
+    var name = 'relative-location';
     var actual = parse(deps[name], name, './');
     var expected = {
       type: 'package',
       package: { 
-        name: 'some-package-with-a-location',
+        name: 'relative-location',
         main: 'main.js',
-        location: 'some-location'
+        location: 'tmp/bower_components/relative-location/location' 
+      }
+    };
+    actual.should.eql(expected);
+  });
+
+  it('should parse absolute package location ', function () {
+    var name = 'absolute-location';
+    var actual = parse(deps[name], name, './');
+    var expected = {
+      type: 'package',
+      package: { 
+        name: 'absolute-location',
+        main: 'main.js',
+        location: '/location' 
       }
     };
     actual.should.eql(expected);
