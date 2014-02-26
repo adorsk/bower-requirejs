@@ -134,7 +134,7 @@ describe('build_config', function () {
         a: 'a/main', 
       }, 
       packages: [
-        {location: '/package', main: 'main.js'}
+        {name: 'package', location: '/package', main: 'main.js'}
       ] 
     };
     actual.should.eql(expected);

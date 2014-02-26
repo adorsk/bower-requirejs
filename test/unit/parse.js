@@ -78,6 +78,7 @@ describe('parse', function () {
     var expected = {
       type: 'package',
       package: { 
+        name: 'some-package',
         main: 'main.js',
         location: deps[name].canonicalDir,
       }
@@ -91,6 +92,7 @@ describe('parse', function () {
     var expected = {
       type: 'package',
       package: { 
+        name: 'some-package-with-a-location',
         main: 'main.js',
         location: 'some-location'
       }
@@ -104,6 +106,7 @@ describe('parse', function () {
     var expected = {
       type: 'package',
       package: { 
+        name:'some-package-with-a-main',
         main: 'some-main.js',
         location: deps[name].canonicalDir
       }
