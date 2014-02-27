@@ -2,7 +2,13 @@ require.config({
   shim: {
 
   },
-  packages: [],
+  packages: [
+    { 
+      name: 'node-module-type-stub',
+      main: 'myMain.js',
+      location: '../bower_components/node-module-type-stub/src' 
+    }
+  ],
   paths: {
     anima: "../bower_components/anima/anima",
     'backbone-amd': '../bower_components/backbone-amd/backbone',
