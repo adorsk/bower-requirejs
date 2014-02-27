@@ -117,26 +117,4 @@ describe('build_config', function () {
     actual.should.eql(expected);
   });
 
-  it('should create config with packages', function () {
-    var baseUrl = '/';
-    var dependencyGraph = generateDependencyGraph({
-      baseUrl: baseUrl,
-      dependencies: [
-        {name: 'a'},
-        {name: 'package', moduleType: ['node']}
-      ],
-    });
-
-    var actual = buildConfig(dependencyGraph, {baseUrl: baseUrl});
-
-    var expected = {
-      paths: { 
-        a: 'a/main', 
-      }, 
-      packages: [
-        {location: '/package', main: 'main.js'}
-      ] 
-    };
-    actual.should.eql(expected);
-  });
 });

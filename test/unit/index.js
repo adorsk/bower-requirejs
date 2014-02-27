@@ -18,7 +18,7 @@ describe('index', function () {
   });
 
   describe('when no config option is provided', function(){
-    it('should just fire callback with generatedConfig object', function (done) {
+    it.only('should just fire callback with generatedConfig object', function (done) {
       require('../../lib')({}, function (generatedConfig) {
         generatedConfig.should.be.ok;
         done();
