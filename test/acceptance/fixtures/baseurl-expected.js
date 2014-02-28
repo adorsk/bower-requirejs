@@ -1,10 +1,10 @@
 require.config({
   shim: {},
   packages: [
-    { 
+    {
       name: 'node-module-type-stub',
       main: 'myMain.js',
-      location: 'bower_components/node-module-type-stub/src' 
+      location: 'bower_components/node-module-type-stub/src'
     }
   ],
   paths: {

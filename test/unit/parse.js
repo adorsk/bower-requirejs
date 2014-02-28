@@ -38,7 +38,7 @@ describe('parse', function () {
     var actual = parse(deps['non-js'], 'non-js', './');
     var expected = {
       type: 'paths',
-      paths: {} 
+      paths: {}
     };
     actual.should.eql(expected);
   });
@@ -47,7 +47,7 @@ describe('parse', function () {
     var actual = parse(deps['non-jss'], 'non-jss', './');
     var expected = {
       type: 'paths',
-      paths: {} 
+      paths: {}
     };
     actual.should.eql(expected);
   });
@@ -65,8 +65,8 @@ describe('parse', function () {
     var actual = parse(deps.mout, 'mout', './');
     var expected = {
       type: 'paths',
-      paths: { 
-        mout: 'tmp/bower_components/mout/src' 
+      paths: {
+        mout: 'tmp/bower_components/mout/src'
       }
     };
     actual.should.eql(expected);
@@ -77,7 +77,7 @@ describe('parse', function () {
     var actual = parse(deps[name], name, './');
     var expected = {
       type: 'package',
-      package: { 
+      package: {
         name: 'some-package',
         main: 'main.js',
         location: deps[name].canonicalDir,
@@ -91,10 +91,10 @@ describe('parse', function () {
     var actual = parse(deps[name], name, './');
     var expected = {
       type: 'package',
-      package: { 
+      package: {
         name: 'relative-location',
         main: 'main.js',
-        location: 'tmp/bower_components/relative-location/location' 
+        location: 'tmp/bower_components/relative-location/location'
       }
     };
     actual.should.eql(expected);
@@ -105,10 +105,10 @@ describe('parse', function () {
     var actual = parse(deps[name], name, './');
     var expected = {
       type: 'package',
-      package: { 
+      package: {
         name: 'absolute-location',
         main: 'main.js',
-        location: '/location' 
+        location: '/location'
       }
     };
     actual.should.eql(expected);
@@ -119,8 +119,8 @@ describe('parse', function () {
     var actual = parse(deps[name], name, './');
     var expected = {
       type: 'package',
-      package: { 
-        name:'some-package-with-a-main',
+      package: {
+        name: 'some-package-with-a-main',
         main: 'some-main.js',
         location: deps[name].canonicalDir
       }
