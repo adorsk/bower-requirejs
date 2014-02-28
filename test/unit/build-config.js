@@ -6,15 +6,15 @@ var should = require('should');
 var path = require('path');
 var file = require('file-utils');
 var _ = require('lodash');
-var buildConfig = require('../../lib/build_config');
+var buildConfig = require('../../lib/build-config');
 
 
-describe('build_config', function () {
+describe('buildConfig', function () {
 
   /*
    * Helper functions to create mock dependency graphs.
    */
-  var generateDependencyGraph = function(opts){
+  var generateDependencyGraph = function (opts) {
     var baseUrl = opts.baseUrl || '/';
 
     var dependencyGraph = {
@@ -26,7 +26,7 @@ describe('build_config', function () {
 
     var generatedDependencies = {};
 
-    for (var i=0; i < opts.dependencies.length; i++){
+    for (var i = 0; i < opts.dependencies.length; i++) {
       var dep = opts.dependencies[i];
       generatedDependencies[dep.name] = generateDependency(_.extend({
         baseUrl: opts.baseUrl
@@ -38,7 +38,7 @@ describe('build_config', function () {
     return dependencyGraph;
   };
 
-  var generateDependency = function(opts){
+  var generateDependency = function (opts) {
     opts = opts || {};
     var baseUrl = opts.baseUrl || '/';
     var dependencies = opts.dependencies || [];
@@ -53,11 +53,11 @@ describe('build_config', function () {
       dependencies: {}
     };
 
-    if (moduleType){
+    if (moduleType) {
       dep.pkgMeta.moduleType = moduleType;
     }
 
-    for (var i = 0; i < dependencies.length; i++){
+    for (var i = 0; i < dependencies.length; i++) {
       var subdep = dependencies[i];
       dep.dependencies[subdep.name] = generateDependency(_.extend({
         baseUrl: baseUrl
@@ -67,7 +67,7 @@ describe('build_config', function () {
     return dep;
   };
 
-  it('should create config w/ only top-level dependencies', function(){
+  it('should create config w/ only top-level dependencies', function () {
     var baseUrl = '/';
     var dependencyGraph = generateDependencyGraph({
       baseUrl: baseUrl,
@@ -83,10 +83,10 @@ describe('build_config', function () {
 
     var expected = {
       paths: {
-        a: 'a/main', 
-        b: 'b/main' 
-      }, 
-      packages: [] 
+        a: 'a/main',
+        b: 'b/main'
+      },
+      packages: []
     };
 
     actual.should.eql(expected);
@@ -107,12 +107,12 @@ describe('build_config', function () {
     var actual = buildConfig(dependencyGraph, {baseUrl: baseUrl, transitive: true});
 
     var expected = {
-      paths: { 
-        a: 'a/main', 
-        b: 'b/main', 
+      paths: {
+        a: 'a/main',
+        b: 'b/main',
         'child-of-b': 'child-of-b/main'
-      }, 
-      packages: [] 
+      },
+      packages: []
     };
     actual.should.eql(expected);
   });
