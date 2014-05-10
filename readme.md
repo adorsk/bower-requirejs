@@ -1,17 +1,19 @@
-# bower-requirejs [![Build Status](https://secure.travis-ci.org/yeoman/bower-requirejs.png?branch=master)](http://travis-ci.org/yeoman/bower-requirejs)
+# bower-requirejs [![Build Status](https://secure.travis-ci.org/yeoman/bower-requirejs.svg?branch=master)](http://travis-ci.org/yeoman/bower-requirejs)
 
 > Automagically wire-up installed Bower components into your RequireJS config
 
 
 ## Install
 
-- Install with [npm](https://npmjs.org/package/grunt-bower-requirejs): `npm install --save bower-requirejs`
+```sh
+$ npm install --save bower-requirejs
+```
 
 
-## Example usage
+## Usage
 
 ```
-./node_modules/.bin/bower-requirejs -c path/to/config -e underscore -e jquery
+./node_modules/.bin/bower-requirejs -c path/to/config.js -e underscore -e jquery
 ```
 
 
@@ -22,8 +24,21 @@
 -v, --version        # Print the version number'
 -c, --config         # Path to your RequireJS config file'
 -e, --exclude        # Name of a dependency to be excluded from the process'
--b, --baseUrl        # Path which all dependencies will be relative to'
+-b, --base-url       # Path which all dependencies will be relative to'
 -t, --transitive     # Process transitive dependencies'
+```
+
+
+## Using Bower Hooks
+
+Bower >=v1.3.1 includes [hooks](https://github.com/bower/bower/blob/master/HOOKS.md) for `preinstall`, `postinstall` and `preuninstall` actions. To run grunt-bower-requirejs after every bower install, add a `scripts` block to your `.bowerrc`.
+
+```
+{
+  "scripts": {
+    "postinstall": "bower-requirejs -c path/to/config.js"
+  }
+}
 ```
 
 
@@ -53,7 +68,9 @@ requirejs.config({
 
 The tool does not overwrite the config file, it just adds additional paths to it. So paths you add will be preserved. Keep in mind that if you change or remove one of your Bower dependencies after you've run the task, that path will still exist in the config file and you'll need to manually remove it.
 
+
 ### Transitive option
+
 If the transitive option is set to ```true```, then transitive dependencies will be also added to the require config.
 
 For example, say we explicitly have an entry in our bower config for module ```myTotallyCoolModule```, which depends on ```jQuery``` and ```underscore```. If the transitive option is set to ```true```, there will be config entries for ```myTotallyCoolModule```, ```jQuery```, and ```underscore```. Otherwise, if the transitive option is set to ```false```, there will only be a config entry for ```myTotallyCoolModule```.
@@ -70,8 +87,8 @@ Although RequireJS does not provide a `bower.json` file, a path to `require.js` 
 
 ### bowerRequireJS(options, callback)
 
-- `options` — An [options object](https://github.com/yeoman/bower-requirejs#options) containing a config and optional baseUrl and excludes.
-- `callback` — A callback to execute when the task is finished
+- `options` — An [options object](https://github.com/yeoman/bower-requirejs#options) containing optional config, baseUrl, and exclude options. The `config` option specifies an output file to which the generated require.js config will be written. If a require.js config file already exists at this location, the generated config will be merged into this file.
+- `callback` — A callback to execute when the task is finished. This callback will receive an object that the contains require.js configuration generated from bower components. Note that this includes *only* config elements representing bower components.
 
 You can use `bower-requirejs` directly in your app if you prefer to not rely on the binary.
 
@@ -84,7 +101,7 @@ var options = {
   transitive: true
 };
 
-bowerRequireJS(options, function () {
+bowerRequireJS(options, function (rjsConfigFromBower) {
   // all done!
 });
 ```
@@ -131,6 +148,26 @@ var dep = { canonicalDir: './bower_components/backbone' };
 
 var primaryJS = primary(name, dep);
 // returns backbone.js
+```
+
+### buildConfig(bowerDependencyGraph, options)
+
+- `bowerDependencyGraph` — A bower dependency graph, as returned by a call to `bower.commands.list`
+- `options` — An object containing `baseUrl`, `exclude`, and `transitive` options, as described above.
+
+This module can be used to generate a requireJs config elements from bower components.
+
+```js
+var buildConfig = require('bower-requirejs/lib/build-config');
+
+bower.commands.list({})
+.on('end', function (dependencyGraph) {
+  var configElementsFromBower = buildConfig(dependencyGraph, {
+    baseUrl : '/some/base/url',
+    exclude: ['underscore', 'jquery'],
+    transitive: true
+  });
+});
 ```
 
 ## Credit
